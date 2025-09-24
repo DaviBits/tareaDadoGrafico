@@ -2,6 +2,8 @@ package com.example.demo;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
+import javafx.scene.control.Label;
+
 public class Tablero extends BorderPane {
     private JugadorUI ui1;
     private JugadorUI ui2;
@@ -9,6 +11,7 @@ public class Tablero extends BorderPane {
     private JugadorUI ui4;
     private CentroTablero centroTablero;
     private Juego3Dados juego3Dados;
+    private Label ganadorLabel;
 
     public Tablero(Jugador j1, Jugador j2, Jugador j3, Jugador j4) {
         //this.juego3Dados = juego3Dados;
@@ -68,11 +71,15 @@ public class Tablero extends BorderPane {
     }
 
     public void mostrarGanador(Jugador ganador) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Juego Terminado");
-        alert.setHeaderText("¡Tenemos un ganador!");
-        alert.setContentText("El ganador es " + ganador.getNombre() +
-                " con " + ganador.getRondasGanadas() + " rondas ganadas.");
-        alert.showAndWait();
+        System.out.println("se llamo al metodo del label ganador");
+        System.out.println("gano: "+ganador.getNombre());
+        ganadorLabel = new Label();
+        ganadorLabel.setStyle("-fx-font-size: 32px; -fx-text-fill: green; -fx-font-weight: bold;");
+        this.setCenter(ganadorLabel);
+
+        ganadorLabel.setText("ganador: " + ganador.getNombre() );
+        //this.getChildren().add(nombreGanador);
+
+
     }
 }

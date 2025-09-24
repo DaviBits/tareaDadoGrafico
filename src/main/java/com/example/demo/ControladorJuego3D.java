@@ -2,6 +2,8 @@ package com.example.demo;
 
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
+
 public class ControladorJuego3D  {
     private Tablero tablero;
     private ManejadorJuego manejador;
@@ -25,7 +27,7 @@ public class ControladorJuego3D  {
         //cambiar los puntos
         tablero.actualizarJugador(jugador);
 
-        if (manejador.getRondaActual() >= manejador.getNumeroDeRondas() * 4) {
+        if ((manejador.getRondaActual() ==4)) {
             Jugador ganador = manejador.getGanador();
             tablero.mostrarGanador(ganador);
         }
@@ -33,6 +35,7 @@ public class ControladorJuego3D  {
     }
 
     public void lanzar3Dados(){
+        Label nombreGanador=new Label();
 
     }
 }
