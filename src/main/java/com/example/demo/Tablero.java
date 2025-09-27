@@ -71,15 +71,14 @@ public class Tablero extends BorderPane {
     }
 
     public void mostrarGanador(Jugador ganador) {
-        System.out.println("se llamo al metodo del label ganador");
-        System.out.println("gano: "+ganador.getNombre());
-        ganadorLabel = new Label();
-        ganadorLabel.setStyle("-fx-font-size: 32px; -fx-text-fill: green; -fx-font-weight: bold;");
-        this.setCenter(ganadorLabel);
+        centroTablero.mostrarGanador(ganador.getNombre());
+    }
 
-        ganadorLabel.setText("ganador: " + ganador.getNombre() );
-        //this.getChildren().add(nombreGanador);
+    public void actualizarRondaUI(int ronda){
+        centroTablero.mostrarRonda(ronda);
+    }
 
-
+    public void eliminarBotonLazar(){
+        centroTablero.eliminarBotonLanzar();
     }
 }

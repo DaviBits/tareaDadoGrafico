@@ -1,6 +1,7 @@
 package com.example.demo;
 
 
+import java.util.ArrayList;
 
 public class ManejadorJuego {
 
@@ -16,21 +17,22 @@ public class ManejadorJuego {
 
     ManejadorJuego() {
         juego3Dados = new Juego3Dados();
-        jugador1 = new Jugador("Susanita");
-        jugador2 = new Jugador("Manolito");
-        jugador3 = new Jugador("Mafalda");
-        jugador4 = new Jugador("Libertad");
+        jugador1 = new Jugador("David1");
+        jugador2 = new Jugador("David la secuela");
+        jugador3 = new Jugador("David requiem");
+        jugador4 = new Jugador("David recargado");
         numeroDeRondas = 3;
         turnoJugador = 0;
+        
     }
 
     ManejadorJuego(int numeroDeRondas) {
         juego3Dados = new Juego3Dados();
         turnoJugador = 0;
-        jugador1 = new Jugador("susanita");
-        jugador2 = new Jugador("Manolito");
-        jugador3 = new Jugador("Mafalda");
-        jugador4 = new Jugador("Libertad");
+        jugador1 = new Jugador("David1");
+        jugador2 = new Jugador("David la secuela");
+        jugador3 = new Jugador("David requiem");
+        jugador4 = new Jugador("David recargado");
         this.numeroDeRondas = numeroDeRondas;
     }
 
@@ -57,6 +59,11 @@ public class ManejadorJuego {
 
     }
 
+
+    public int turnoJugador(){
+        return (1+turnoJugador)%4;
+    }
+
     public void jugar(Jugador jugador) {
         juego3Dados.lanzar3Dados();
         jugador.setPuntos(jugador.getPuntos() + juego3Dados.suma3Dados());
@@ -65,38 +72,9 @@ public class ManejadorJuego {
             jugador.incrementarRondasGanadas();
         }
     }
-/*
-    public void jugar() {
-        Jugador jugador = null;
-        switch (turnoJugador) {
-            case 0:
-                jugador = jugador1;
-                break;
-            case 1:
-                jugador = jugador2;
-                break;
-            case 2:
-                jugador = jugador3;
-                break;
-            case 3:
-                jugador = jugador4;
-                break;
-        }
-
-        juego3Dados.lanzar3Dados();
-
-        jugador.setPuntos(jugador.getPuntos() + juego3Dados.suma3Dados());
-        System.out.println(juego3Dados.misDados() );
-        if (juego3Dados.gane()) {
-            jugador.incrementarRondasGanadas();
-        }
-        turnoJugador++;
-    }
-
- */
 
     public Jugador jugar() {
-        Jugador jugador = switch (turnoJugador) {
+        Jugador jugador = switch (turnoJugador()) {
             case 0 -> jugador1;
             case 1 -> jugador2;
             case 2 -> jugador3;
@@ -120,23 +98,22 @@ public class ManejadorJuego {
     }
 
     public Jugador getGanador() {
-        Jugador jugadorGanador = jugador1;
-        if (jugador2.getRondasGanadas() > jugadorGanador.getRondasGanadas()) {
-            jugadorGanador = jugador2;
+        ArrayList<Jugador> jugadores= new ArrayList<>();
+        jugadores.add(jugador1);
+        jugadores.add(jugador2);
+        jugadores.add(jugador3);
+        jugadores.add(jugador4);
+
+        ganador=jugador1;
+
+        for(Jugador jugador: jugadores){
+            if(ganador.getPuntos()<jugador.getPuntos()){
+                ganador=jugador;
+            }
         }
 
-        if (jugador3.getRondasGanadas() > jugadorGanador.getRondasGanadas()) {
-            jugadorGanador = jugador3;
-        }
+        return ganador;
 
-        if (jugador4.getRondasGanadas() > jugadorGanador.getRondasGanadas()) {
-            jugadorGanador = jugador4;
-        }
-
-        System.out.println("El jugador con más rondas ganadas es: " + jugadorGanador.getNombre() +
-                " con " + jugadorGanador.getRondasGanadas() + " rondas.");
-
-        return jugadorGanador;
 
     }
 
@@ -146,10 +123,6 @@ public class ManejadorJuego {
         System.out.println(jugador3);
         System.out.println(jugador4);
         return jugador1.toString();
-    }
-
-    public void resetearRonda() {
-        turnoJugador = 0;
     }
 
     public int getNumeroDeRondas() {
@@ -176,8 +149,4 @@ public class ManejadorJuego {
         return jugador4;
     }
 
-    public static void main(String[] args) {
-        ManejadorJuego mj = new ManejadorJuego();
-        mj.iniciarJuego();
-    }
 }

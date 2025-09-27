@@ -4,19 +4,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
-import java.util.Scanner;
 
 import java.awt.*;
 import java.io.IOException;
 
-public class JavafxSample extends Application {
-
-    Jugador j1 = new Jugador("David");
-    Jugador j2 = new Jugador("David");
-    Jugador j3 = new Jugador("David");
-    Jugador j4 = new Jugador("David");
-    private Juego3Dados juego;
-    private String respuesta;
+public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {

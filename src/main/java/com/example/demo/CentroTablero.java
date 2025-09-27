@@ -13,18 +13,64 @@ public class CentroTablero extends VBox {
     private DadoUI dadoUI2;
     private DadoUI dadoUI3;
     private Button lanzar = new Button("Lanzar");
-    private ControladorJuego3D controlador;
+    private Label nombreGanador;
+    private Label labelNumeroRonda;
 
     public CentroTablero(ControladorJuego3D controlador) {
+        Font pressStart = Font.loadFont(
+                getClass().getResourceAsStream("/PressStart2P-Regular.ttf"),
+                32
+        );
+
+        Font pressStartChica = Font.loadFont(
+                getClass().getResourceAsStream("/PressStart2P-Regular.ttf"),
+                20
+        );
+
+
+
         HBox dados= new HBox();
         HBox boton= new HBox();
-        this.controlador = controlador;
+        //zona superior para el numero de ronda
+        VBox zonaSuperior=new VBox(64);
+        labelNumeroRonda = new Label();
+        labelNumeroRonda.setFont(pressStart);
+        labelNumeroRonda.setStyle("-fx-text-fill: #000000; ");
+        labelNumeroRonda.setMaxWidth(Double.MAX_VALUE);
+        labelNumeroRonda.setAlignment(Pos.CENTER);
+        zonaSuperior.getChildren().add(labelNumeroRonda);
 
-        //this.juego3dados = juego3dados;
+
+        //zona media para los dados
+        VBox zonaMedia=new VBox();
         dadoUI1 = new DadoUI();
         dadoUI2 = new DadoUI();
         dadoUI3 = new DadoUI();
-        lanzar.setOnMouseClicked(e -> controlador.jugar());
+        lanzar.setOnMouseClicked(e -> controlador.jugar());//AQUI INICIA EL JUEGO
+        dados.getChildren().addAll(dadoUI1, dadoUI2, dadoUI3);
+        dados.setAlignment(Pos.CENTER);
+        boton.getChildren().addAll(lanzar);
+        boton.setAlignment(Pos.CENTER);
+        zonaMedia.getChildren().addAll(dados, boton);
+
+        //zona inferior del centro
+        VBox zonaInferior = new VBox();
+        nombreGanador = new Label();
+        nombreGanador.setFont(pressStartChica);
+        nombreGanador.setStyle(" -fx-text-fill: #000000;");
+        nombreGanador.setMaxWidth(Double.MAX_VALUE);
+        nombreGanador.setAlignment(Pos.CENTER);
+        zonaInferior.getChildren().addAll(nombreGanador);
+
+        this.setAlignment(Pos.CENTER);
+        this.setSpacing(20);
+        this.getChildren().addAll(zonaSuperior, zonaMedia, zonaInferior);
+
+        mostrarRonda(1);
+
+
+
+
 
         /*
         lanzar.setOnMouseClicked(MouseEvent -> {
@@ -36,16 +82,20 @@ public class CentroTablero extends VBox {
         });
 
          */
-        dados.getChildren().addAll(dadoUI1, dadoUI2, dadoUI3);
-        dados.setAlignment(Pos.CENTER);
-        boton.getChildren().addAll(lanzar);
-        boton.setAlignment(Pos.CENTER);
-        this.getChildren().addAll(dados, boton);
+
+       // this.getChildren().addAll(dados, boton, zonaSuperior);
 
         //this.getChildren().addAll(dadoUI1, dadoUI2, dadoUI3,lanzar);
     }
-    public void setOnLanzar(Runnable action) {
-        lanzar.setOnAction(e -> action.run());
+
+    public void mostrarGanador(String nombre){
+        nombreGanador.setText("el ganador es "+nombre+"!!");
+
+    }
+
+    public void mostrarRonda(int ronda){
+
+        labelNumeroRonda.setText("ronda: "+ronda+"!!");
     }
 
     public void actualizarDados(int valDado1, int valDado2, int valDado3){
@@ -53,4 +103,10 @@ public class CentroTablero extends VBox {
         dadoUI2.cambiarEmojis(valDado2);
         dadoUI3.cambiarEmojis(valDado3);
     }
+
+    public void eliminarBotonLanzar(){
+        lanzar.setVisible(false);
+        lanzar.setManaged(false);
+    }
 }
+
